@@ -3,35 +3,15 @@ version: '3'
 services:
   listmonk:
     image: listmonk/listmonk:latest
+    command: sh -c "yes | ./listmonk --install --idempotent && ./listmonk"
     environment:
-      LISTMONK_db__host: db
-      LISTMONK_db__port: 5432
-      LISTMONK_db__user: ${POSTGRES_USER}
-      LISTMONK_db__password: ${POSTGRES_PASSWORD}
-      LISTMONK_db__database: ${POSTGRES_DB}
+      LISTMONK_db__host: ${DB_HOST}
+      LISTMONK_db__port: ${DB_PORT:-5432}
+      LISTMONK_db__user: ${DB_USER}
+      LISTMONK_db__password: ${DB_PASSWORD}
+      LISTMONK_db__database: ${DB_NAME}
       LISTMONK_app__address: 0.0.0.0:9000
       TZ: ${TIMEZONE:-UTC}
-    depends_on:
-      db:
-        condition: service_healthy
     restart: always
     ports:
       - "9000:9000"
-
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - listmonk-db:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    restart: always
-
-volumes:
-  listmonk-db:
