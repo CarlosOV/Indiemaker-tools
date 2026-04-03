@@ -14,27 +14,25 @@ Open-source platform to run autonomous AI companies. Hire agents, set goals, ass
 - **Audit log** — Every decision explained. Full tool-call tracing.
 - **Mobile ready** — Monitor and manage from your phone.
 
-## Quickstart (self-hosted)
+## Deploy on Dokploy
 
-No Docker image required. Paperclip uses an interactive CLI onboarding:
+1. Create a PostgreSQL database in Dokploy → Database
+2. Create a new **Docker Compose** service
+3. Paste the contents of `docker-compose.yml`
+4. Set environment variables (see `.env.example`)
+5. Set your domain in Dokploy → Domains → port `3100`
+6. Deploy
 
-```bash
-npx paperclipai onboard --yes
-```
-
-The wizard walks you through:
-1. Database setup (PostgreSQL recommended)
-2. Auth configuration
-3. Your first company and agents
-
-## Deploy on a VPS / Dokploy
+## Deploy with Docker (generic)
 
 ```bash
-# On your server
-npx paperclipai onboard --yes
+docker build -t paperclip .
+docker run -d \
+  -e DATABASE_URL=postgresql://user:password@host:5432/paperclip \
+  -e SERVE_UI=true \
+  -p 3100:3100 \
+  paperclip
 ```
-
-Then reverse-proxy port `3000` (default) with your Dokploy domain or Nginx/Traefik.
 
 ## Environment Variables
 

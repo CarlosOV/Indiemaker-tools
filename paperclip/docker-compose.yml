@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  paperclip:
+    build: .
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      PORT: ${PORT:-3100}
+      SERVE_UI: "true"
+    restart: always
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
