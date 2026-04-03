@@ -8,3 +8,9 @@ services:
       DATABASE_TYPE: postgresql
       APP_SECRET: ${APP_SECRET}
     restart: always
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true

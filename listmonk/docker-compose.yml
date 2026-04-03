@@ -13,3 +13,9 @@ services:
       LISTMONK_app__address: 0.0.0.0:9000
       TZ: ${TIMEZONE:-UTC}
     restart: always
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
