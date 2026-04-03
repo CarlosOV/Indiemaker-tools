@@ -10,6 +10,7 @@ No vendor lock-in. No monthly SaaS fees. Your data, your server.
 |---|---|---|
 | [Umami](./umami) | Analytics | Privacy-friendly web analytics — Google Analytics alternative |
 | [Listmonk](./listmonk) | Email Marketing | Self-hosted newsletter & mailing list manager |
+| [Paperclip](./paperclip) | AI Orchestration | Run autonomous AI companies — org chart, goals, budgets, agents |
 
 ## Requirements
 
